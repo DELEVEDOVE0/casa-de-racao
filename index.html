@@ -4,9 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Celeiro & Pata — Nutrição Animal e Empório Pet</title>
+  <meta name="description" content="Casa de ração, venda a granel pesada na hora, farmácia veterinária básica e entrega rápida. Consulte marcas no site ou fale direto pelo WhatsApp.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
   
   <style>
     :root {
@@ -18,11 +19,13 @@
       --forest: #1B3B2B;
       --forest-hover: #132A1E;
       --terracotta: #C86D3B;
+      --whatsapp: #25D366;
+      --whatsapp-hover: #1EBE5D;
       --border: #E5E0D8;
-      --danger: #B91C1C;
-      --radius-sm: 6px;
-      --radius-md: 12px;
-      --radius-lg: 20px;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 22px;
+      --container: 1320px;
     }
 
     * {
@@ -39,8 +42,9 @@
       background-color: var(--bg);
       color: var(--ink);
       font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      line-height: 1.5;
+      line-height: 1.55;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
     h1, h2, h3, .brand-name {
@@ -53,24 +57,48 @@
     .announcement-bar {
       background-color: var(--forest);
       color: #F4F1EA;
-      font-size: 0.8rem;
-      padding: 0.55rem 1rem;
+      font-size: 0.82rem;
+      padding: 0.55rem 1.5rem;
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 0.75rem;
+      gap: 1rem;
       flex-wrap: wrap;
       text-align: center;
     }
 
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: rgba(255, 255, 255, 0.12);
+      padding: 0.22rem 0.7rem;
+      border-radius: 99px;
+      font-weight: 600;
+      font-size: 0.76rem;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #4ADE80;
+      box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.25);
+    }
+
+    .status-dot.closed {
+      background-color: #FBBF24;
+      box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.25);
+    }
+
     .announcement-bar .dot {
-      opacity: 0.5;
+      opacity: 0.45;
     }
 
     /* Cabeçalho */
     .site-header {
-      background-color: rgba(250, 248, 245, 0.92);
-      backdrop-filter: blur(10px);
+      background-color: rgba(250, 248, 245, 0.94);
+      backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
@@ -78,14 +106,13 @@
     }
 
     .header-inner {
-      max-width: 1240px;
+      max-width: var(--container);
       margin: 0 auto;
-      padding: 1rem 5%;
+      padding: 1rem 4%;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 1.5rem;
-      flex-wrap: wrap;
     }
 
     .brand {
@@ -97,13 +124,14 @@
     }
 
     .brand-mark {
-      width: 40px;
-      height: 40px;
+      width: 42px;
+      height: 42px;
       background-color: var(--forest);
       color: #FAF8F5;
       border-radius: var(--radius-sm);
       display: grid;
       place-items: center;
+      flex-shrink: 0;
     }
 
     .brand-text {
@@ -112,13 +140,13 @@
     }
 
     .brand-name {
-      font-size: 1.3rem;
+      font-size: 1.32rem;
       line-height: 1.1;
       color: var(--forest);
     }
 
     .brand-sub {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       color: var(--ink-muted);
       text-transform: uppercase;
       letter-spacing: 0.06em;
@@ -126,7 +154,7 @@
 
     .main-nav {
       display: flex;
-      gap: 1.8rem;
+      gap: 2rem;
     }
 
     .main-nav a {
@@ -141,81 +169,94 @@
       color: var(--terracotta);
     }
 
-    .header-actions {
+    .header-right {
       display: flex;
       align-items: center;
-      gap: 0.85rem;
+      gap: 0.75rem;
     }
 
-    .search-wrapper {
-      position: relative;
-      display: flex;
-      align-items: center;
-    }
-
-    .search-wrapper svg {
-      position: absolute;
-      left: 12px;
-      color: var(--ink-muted);
-      pointer-events: none;
-    }
-
-    .search-wrapper input {
+    .qr-trigger {
       background-color: var(--surface);
+      color: var(--ink);
       border: 1px solid var(--border);
       border-radius: 99px;
-      padding: 0.55rem 1rem 0.55rem 2.3rem;
-      font-size: 0.88rem;
-      color: var(--ink);
-      width: 240px;
-      outline: none;
-      transition: border-color 0.2s, width 0.2s;
+      padding: 0.56rem 1rem;
+      font-size: 0.84rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      cursor: pointer;
+      transition: border-color 0.2s, background-color 0.2s;
     }
 
-    .search-wrapper input:focus {
+    .qr-trigger:hover {
       border-color: var(--forest);
-      width: 270px;
+      background-color: var(--surface-alt);
     }
 
-    .cart-trigger {
-      background-color: var(--ink);
+    .header-whatsapp {
+      background-color: var(--forest);
       color: #FAF8F5;
-      border: none;
+      text-decoration: none;
       border-radius: 99px;
-      padding: 0.58rem 1.1rem;
+      padding: 0.6rem 1.25rem;
       font-size: 0.88rem;
-      font-weight: 500;
-      display: flex;
+      font-weight: 600;
+      display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      cursor: pointer;
       transition: background-color 0.2s;
     }
 
-    .cart-trigger:hover {
-      background-color: var(--forest);
+    .header-whatsapp:hover {
+      background-color: var(--forest-hover);
     }
 
-    .cart-count {
-      background-color: var(--terracotta);
-      color: #fff;
-      font-size: 0.75rem;
-      font-weight: 700;
-      padding: 0.1rem 0.48rem;
-      border-radius: 99px;
+    .mobile-menu-btn {
+      display: none;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      cursor: pointer;
+      color: var(--ink);
     }
 
-    /* Hero Editorial */
+    .mobile-nav {
+      display: none;
+      flex-direction: column;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 4% 1.1rem;
+      gap: 0.75rem;
+    }
+
+    .mobile-nav.open {
+      display: flex;
+    }
+
+    .mobile-nav a {
+      text-decoration: none;
+      color: var(--ink);
+      font-weight: 500;
+      font-size: 0.95rem;
+      padding: 0.35rem 0;
+    }
+
+    /* Hero */
     .hero {
-      max-width: 1240px;
+      max-width: var(--container);
       margin: 0 auto;
-      padding: 4rem 5% 4.5rem;
+      padding: 4.5rem 4% 4.5rem;
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 3.5rem;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 4.5rem;
       align-items: center;
     }
 
@@ -229,73 +270,81 @@
     }
 
     .hero-copy h1 {
-      font-size: clamp(2.2rem, 4vw, 3.35rem);
-      line-height: 1.08;
+      font-size: clamp(2.25rem, 3.8vw, 3.6rem);
+      line-height: 1.06;
       color: var(--ink);
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.3rem;
     }
 
     .hero-lead {
-      font-size: 1.05rem;
+      font-size: 1.08rem;
       color: var(--ink-muted);
-      max-width: 52ch;
-      margin-bottom: 2rem;
+      max-width: 54ch;
+      margin-bottom: 2.1rem;
     }
 
     .hero-cta {
       display: flex;
-      gap: 0.9rem;
+      gap: 1rem;
       flex-wrap: wrap;
       margin-bottom: 2.8rem;
     }
 
     .btn-primary {
-      background-color: var(--forest);
-      color: #FAF8F5;
+      background-color: var(--whatsapp);
+      color: #FFFFFF;
       text-decoration: none;
-      padding: 0.85rem 1.65rem;
+      padding: 0.95rem 1.75rem;
       border-radius: var(--radius-sm);
-      font-weight: 500;
-      font-size: 0.95rem;
-      transition: background-color 0.2s;
+      font-weight: 700;
+      font-size: 0.96rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      box-shadow: 0 4px 14px rgba(37, 211, 102, 0.28);
+      transition: background-color 0.2s, transform 0.2s;
     }
 
     .btn-primary:hover {
-      background-color: var(--forest-hover);
+      background-color: var(--whatsapp-hover);
+      transform: translateY(-1px);
     }
 
     .btn-outline {
-      background-color: transparent;
+      background-color: var(--surface);
       color: var(--ink);
       text-decoration: none;
-      padding: 0.85rem 1.65rem;
+      padding: 0.95rem 1.65rem;
       border-radius: var(--radius-sm);
       border: 1px solid var(--border);
-      font-weight: 500;
-      font-size: 0.95rem;
-      transition: border-color 0.2s;
+      font-weight: 600;
+      font-size: 0.96rem;
+      cursor: pointer;
+      transition: border-color 0.2s, background-color 0.2s;
     }
 
     .btn-outline:hover {
       border-color: var(--ink);
+      background-color: var(--surface-alt);
     }
 
     .hero-metrics {
-      display: flex;
-      gap: 2.2rem;
-      padding-top: 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(120px, 1fr));
+      gap: 2rem;
+      padding-top: 1.65rem;
       border-top: 1px solid var(--border);
-      flex-wrap: wrap;
+      max-width: 560px;
     }
 
     .hero-metrics strong {
       display: block;
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       color: var(--forest);
     }
 
     .hero-metrics span {
-      font-size: 0.82rem;
+      font-size: 0.84rem;
       color: var(--ink-muted);
     }
 
@@ -306,8 +355,9 @@
     .image-frame {
       border-radius: var(--radius-lg);
       overflow: hidden;
-      aspect-ratio: 4 / 4.3;
+      aspect-ratio: 4 / 4.2;
       background-color: var(--surface-alt);
+      box-shadow: 0 20px 45px rgba(26, 25, 24, 0.08);
     }
 
     .image-frame img {
@@ -319,14 +369,14 @@
 
     .floating-note {
       position: absolute;
-      bottom: -18px;
-      left: -22px;
+      bottom: -20px;
+      left: -24px;
       background-color: var(--surface);
       border: 1px solid var(--border);
-      padding: 1rem 1.25rem;
+      padding: 1.1rem 1.35rem;
       border-radius: var(--radius-md);
-      max-width: 260px;
-      box-shadow: 0 12px 30px rgba(26, 25, 24, 0.06);
+      max-width: 280px;
+      box-shadow: 0 14px 32px rgba(26, 25, 24, 0.08);
     }
 
     .note-label {
@@ -340,247 +390,822 @@
     }
 
     .floating-note p {
-      font-size: 0.84rem;
+      font-size: 0.85rem;
       color: var(--ink-muted);
       line-height: 1.4;
     }
 
-    /* Pilares */
-    .pillars {
-      background-color: var(--surface-alt);
+    /* Faixa de Marcas */
+    .brands-strip {
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
-      padding: 3.5rem 5%;
+      background-color: var(--surface);
+      padding: 1.75rem 4%;
     }
 
-    .pillars-inner {
-      max-width: 1240px;
+    .brands-inner {
+      max-width: var(--container);
       margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
     }
 
-    .pillar-num {
-      display: inline-block;
-      font-family: 'Fraunces', serif;
-      font-size: 0.95rem;
-      color: var(--terracotta);
-      margin-bottom: 0.6rem;
-    }
-
-    .pillar h3 {
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .pillar p {
-      font-size: 0.9rem;
+    .brands-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
       color: var(--ink-muted);
+      font-weight: 700;
     }
 
-    /* Catálogo */
-    .catalog-section {
-      max-width: 1240px;
+    .brands-list {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .brands-list span {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 1.12rem;
+      color: var(--ink-muted);
+      opacity: 0.9;
+    }
+
+    /* Seções Gerais */
+    .section-block {
+      max-width: var(--container);
       margin: 0 auto;
-      padding: 4.5rem 5% 5.5rem;
+      padding: 5rem 4%;
     }
 
-    .catalog-header {
+    .section-header-row {
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
-      gap: 1.5rem;
-      margin-bottom: 2.5rem;
+      gap: 2rem;
+      margin-bottom: 2.75rem;
       flex-wrap: wrap;
     }
 
-    .catalog-header h2 {
-      font-size: 2rem;
+    .section-intro {
+      max-width: 640px;
     }
 
-    .filter-tabs {
+    .section-intro h2 {
+      font-size: clamp(1.85rem, 3vw, 2.4rem);
+      margin-bottom: 0.55rem;
+    }
+
+    .section-intro p {
+      color: var(--ink-muted);
+      font-size: 1rem;
+    }
+
+    /* Filtros de Linha */
+    .filter-pills {
       display: flex;
-      gap: 0.4rem;
+      gap: 0.5rem;
       flex-wrap: wrap;
     }
 
-    .tab {
-      background: transparent;
+    .filter-btn {
+      background: var(--surface);
       border: 1px solid var(--border);
       color: var(--ink-muted);
-      padding: 0.5rem 1rem;
+      padding: 0.5rem 1.05rem;
       border-radius: 99px;
       font-size: 0.86rem;
-      font-weight: 500;
+      font-weight: 600;
       cursor: pointer;
       transition: all 0.2s;
     }
 
-    .tab:hover {
+    .filter-btn:hover {
       border-color: var(--ink);
       color: var(--ink);
     }
 
-    .tab.active {
+    .filter-btn.active {
       background-color: var(--forest);
       border-color: var(--forest);
       color: #FAF8F5;
     }
 
-    .product-grid {
+    /* Pilares */
+    .pillars-bg {
+      background-color: var(--surface-alt);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pillars-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .pillar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .pillar-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 26px rgba(26, 25, 24, 0.05);
+    }
+
+    .pillar-num {
+      display: inline-block;
+      font-family: 'Fraunces', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--terracotta);
+      margin-bottom: 0.6rem;
+    }
+
+    .pillar-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.55rem;
+    }
+
+    .pillar-card p {
+      font-size: 0.94rem;
+      color: var(--ink-muted);
+    }
+
+    /* Vitrine 4 Colunas no Desktop */
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
       gap: 1.75rem;
     }
 
-    .product-card {
+    .showcase-card {
       background-color: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      transition: border-color 0.25s, transform 0.25s;
+      transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
     }
 
-    .product-card:hover {
+    .showcase-card.hidden {
+      display: none;
+    }
+
+    .showcase-card:hover {
+      transform: translateY(-4px);
       border-color: #C7C0B5;
-      transform: translateY(-3px);
+      box-shadow: 0 14px 30px rgba(26, 25, 24, 0.06);
     }
 
-    .product-thumb {
-      position: relative;
+    .showcase-thumb {
       aspect-ratio: 4 / 3;
       background-color: var(--surface-alt);
       overflow: hidden;
     }
 
-    .product-thumb img {
+    .showcase-thumb img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
       transition: transform 0.4s ease;
     }
 
-    .product-card:hover .product-thumb img {
+    .showcase-card:hover .showcase-thumb img {
       transform: scale(1.04);
     }
 
-    .product-tag {
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      background-color: var(--surface);
-      color: var(--ink);
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 0.25rem 0.65rem;
-      border-radius: 4px;
-      border: 1px solid var(--border);
-    }
-
-    .product-body {
-      padding: 1.25rem;
+    .showcase-body {
+      padding: 1.5rem;
       display: flex;
       flex-direction: column;
       flex: 1;
     }
 
-    .product-brand {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
+    .showcase-body h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .showcase-body p {
+      font-size: 0.9rem;
       color: var(--ink-muted);
-      margin-bottom: 0.25rem;
+      margin-bottom: 1.35rem;
+      flex: 1;
     }
 
-    .product-title {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 1.02rem;
-      font-weight: 700;
-      color: var(--ink);
-      margin-bottom: 0.85rem;
-    }
-
-    .variant-selector {
+    /* Dois botões por cartão: Ver no site + WhatsApp */
+    .card-dual-actions {
       display: flex;
-      gap: 0.4rem;
-      flex-wrap: wrap;
-      margin-bottom: 1.1rem;
-    }
-
-    .variant-pill {
-      font-size: 0.76rem;
-      padding: 0.28rem 0.6rem;
-      border-radius: 4px;
-      border: 1px solid var(--border);
-      background: var(--bg);
-      color: var(--ink-muted);
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-
-    .variant-pill.selected {
-      border-color: var(--forest);
-      background-color: var(--forest);
-      color: #fff;
-      font-weight: 500;
-    }
-
-    .product-footer {
-      margin-top: auto;
-      padding-top: 0.9rem;
+      flex-direction: column;
+      gap: 0.55rem;
+      padding-top: 1rem;
       border-top: 1px solid var(--border);
+    }
+
+    .btn-view-site {
+      width: 100%;
+      background-color: var(--forest);
+      color: #FAF8F5;
+      border: none;
+      padding: 0.65rem 0.9rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.86rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      transition: background-color 0.2s;
+    }
+
+    .btn-view-site:hover {
+      background-color: var(--forest-hover);
+    }
+
+    .btn-card-whats {
+      width: 100%;
+      background-color: var(--bg);
+      color: var(--ink);
+      border: 1px solid var(--border);
+      text-decoration: none;
+      padding: 0.6rem 0.9rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.84rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-card-whats:hover {
+      border-color: var(--whatsapp);
+      color: var(--forest);
+    }
+
+    /* Atalhos de Consulta Rápida */
+    .quick-topics {
+      margin-top: 2.75rem;
+      padding: 1.5rem 1.75rem;
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 0.75rem;
+      gap: 1.25rem;
+      flex-wrap: wrap;
     }
 
-    .price-block small {
-      display: block;
-      font-size: 0.72rem;
-      color: var(--ink-muted);
-    }
-
-    .price-block strong {
-      font-size: 1.18rem;
+    .quick-topics-label {
+      font-size: 0.92rem;
+      font-weight: 700;
       color: var(--ink);
     }
 
-    .add-btn {
-      background-color: var(--surface-alt);
-      color: var(--ink);
+    .topic-pills {
+      display: flex;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+    }
+
+    .topic-pill {
+      background-color: var(--bg);
       border: 1px solid var(--border);
-      padding: 0.55rem 0.95rem;
-      border-radius: var(--radius-sm);
+      color: var(--ink);
+      text-decoration: none;
+      padding: 0.5rem 1.05rem;
+      border-radius: 99px;
       font-size: 0.85rem;
-      font-weight: 600;
+      font-weight: 500;
       cursor: pointer;
       transition: all 0.2s;
     }
 
-    .add-btn:hover {
+    .topic-pill:hover {
       background-color: var(--forest);
       border-color: var(--forest);
       color: #FAF8F5;
+    }
+
+    /* Modal de Consulta de Variedades no Próprio Site */
+    .catalog-modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(26, 25, 24, 0.58);
+      backdrop-filter: blur(4px);
+      z-index: 10000;
+      place-items: center;
+      padding: 1.25rem;
+    }
+
+    .catalog-modal-backdrop.open {
+      display: grid;
+    }
+
+    .catalog-modal {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      max-width: 960px;
+      width: 100%;
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.28);
+    }
+
+    .catalog-modal-top {
+      background: var(--surface);
+      padding: 1.4rem 1.75rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .catalog-modal-top h3 {
+      font-size: 1.45rem;
+      color: var(--forest);
+    }
+
+    .catalog-modal-top p {
+      font-size: 0.85rem;
+      color: var(--ink-muted);
+    }
+
+    .modal-close-x {
+      background: var(--surface-alt);
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      color: var(--ink);
+      flex-shrink: 0;
+    }
+
+    .modal-close-x:hover {
+      background: var(--border);
+    }
+
+    .catalog-modal-controls {
+      background: var(--surface);
+      padding: 0.9rem 1.75rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .modal-tabs {
+      display: flex;
+      gap: 0.45rem;
+      flex-wrap: wrap;
+    }
+
+    .modal-tab {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--ink-muted);
+      padding: 0.42rem 0.9rem;
+      border-radius: 99px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .modal-tab.active {
+      background: var(--forest);
+      border-color: var(--forest);
+      color: #FAF8F5;
+    }
+
+    .modal-search {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      padding: 0.45rem 0.95rem;
+      font-size: 0.85rem;
+      color: var(--ink);
+      width: 240px;
+      outline: none;
+    }
+
+    .modal-search:focus {
+      border-color: var(--forest);
+    }
+
+    .catalog-modal-body {
+      padding: 1.5rem 1.75rem;
+      overflow-y: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
+      gap: 1.1rem;
+    }
+
+    .variety-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.85rem;
+    }
+
+    .variety-brand {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--terracotta);
+      font-weight: 700;
+    }
+
+    .variety-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 0.2rem 0 0.4rem;
+    }
+
+    .variety-desc {
+      font-size: 0.84rem;
+      color: var(--ink-muted);
+      line-height: 1.45;
+    }
+
+    .variety-tags {
+      display: flex;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+      margin-top: 0.65rem;
+    }
+
+    .v-tag {
+      background: var(--surface-alt);
+      color: var(--ink);
+      font-size: 0.74rem;
+      font-weight: 600;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+    }
+
+    .v-tag.granel {
+      background: #E6F4EA;
+      color: var(--forest);
+    }
+
+    .catalog-modal-footer {
+      background: var(--surface);
+      padding: 1rem 1.75rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .catalog-modal-footer span {
+      font-size: 0.86rem;
+      color: var(--ink-muted);
+    }
+
+    .btn-modal-whats {
+      background: var(--whatsapp);
+      color: #FFFFFF;
+      text-decoration: none;
+      padding: 0.65rem 1.25rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.88rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .btn-modal-whats:hover {
+      background: var(--whatsapp-hover);
+    }
+
+    /* Como Funciona */
+    .steps-bg {
+      background-color: var(--surface-alt);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.25rem;
+    }
+
+    .step-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.75rem;
+      display: flex;
+      gap: 1.1rem;
+      align-items: flex-start;
+    }
+
+    .step-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background-color: var(--forest);
+      color: #FAF8F5;
+      font-weight: 700;
+      font-size: 0.95rem;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+
+    .step-item h3 {
+      font-size: 1.15rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .step-item p {
+      font-size: 0.92rem;
+      color: var(--ink-muted);
+    }
+
+    /* Depoimentos */
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.75rem;
+    }
+
+    .review-card {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.85rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1.35rem;
+    }
+
+    .review-stars {
+      color: #D97706;
+      font-size: 0.98rem;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.6rem;
+    }
+
+    .review-text {
+      font-size: 0.95rem;
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    .review-author strong {
+      display: block;
+      font-size: 0.92rem;
+      color: var(--forest);
+    }
+
+    .review-author span {
+      font-size: 0.8rem;
+      color: var(--ink-muted);
+    }
+
+    /* FAQ + Loja Física */
+    .info-split-bg {
+      background-color: var(--surface-alt);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .info-split-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    details.faq-item {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.2rem 1.45rem;
+    }
+
+    details.faq-item summary {
+      font-weight: 700;
+      font-size: 0.98rem;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    details.faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details.faq-item summary::after {
+      content: "+";
+      font-size: 1.35rem;
+      color: var(--terracotta);
+      font-weight: 400;
+    }
+
+    details.faq-item[open] summary::after {
+      content: "−";
+    }
+
+    details.faq-item p {
+      margin-top: 0.8rem;
+      font-size: 0.92rem;
+      color: var(--ink-muted);
+      line-height: 1.55;
+    }
+
+    .store-card {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+    }
+
+    .store-card h3 {
+      font-size: 1.45rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .store-card > p {
+      font-size: 0.92rem;
+      color: var(--ink-muted);
+      margin-bottom: 1.35rem;
+    }
+
+    .store-detail-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .store-detail-item strong {
+      display: block;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--forest);
+      margin-bottom: 0.15rem;
+    }
+
+    .store-detail-item span {
+      font-size: 0.92rem;
+      color: var(--ink);
+    }
+
+    .store-card-actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-dark-sm {
+      background-color: var(--forest);
+      color: #FAF8F5;
+      text-decoration: none;
+      padding: 0.65rem 1.15rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.86rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .btn-dark-sm:hover {
+      background-color: var(--forest-hover);
+    }
+
+    .btn-light-sm {
+      background-color: var(--bg);
+      color: var(--ink);
+      border: 1px solid var(--border);
+      padding: 0.65rem 1.15rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.86rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .btn-light-sm:hover {
+      border-color: var(--ink);
+    }
+
+    /* Faixa CTA */
+    .cta-banner {
+      max-width: var(--container);
+      margin: 4.5rem auto;
+      padding: 0 4%;
+    }
+
+    .cta-box {
+      background-color: var(--forest);
+      color: #FAF8F5;
+      border-radius: var(--radius-lg);
+      padding: 3.25rem 3.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .cta-text {
+      max-width: 620px;
+    }
+
+    .cta-text h2 {
+      font-size: clamp(1.7rem, 3vw, 2.35rem);
+      margin-bottom: 0.6rem;
+      color: #FAF8F5;
+    }
+
+    .cta-text p {
+      color: #D6D1C7;
+      font-size: 0.98rem;
+    }
+
+    .btn-whatsapp-large {
+      background-color: var(--whatsapp);
+      color: #FFFFFF;
+      text-decoration: none;
+      padding: 1rem 1.85rem;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: 0.98rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22);
+      transition: background-color 0.2s, transform 0.2s;
+    }
+
+    .btn-whatsapp-large:hover {
+      background-color: var(--whatsapp-hover);
+      transform: translateY(-2px);
     }
 
     /* Rodapé */
     .site-footer {
       background-color: var(--ink);
       color: #D6D1C7;
-      padding-top: 4rem;
+      padding-top: 4.25rem;
     }
 
     .footer-grid {
-      max-width: 1240px;
+      max-width: var(--container);
       margin: 0 auto;
-      padding: 0 5% 3.5rem;
+      padding: 0 4% 3.5rem;
       display: grid;
-      grid-template-columns: 1.3fr 1fr 1fr;
+      grid-template-columns: 1.4fr 0.8fr 1fr 1.1fr;
       gap: 2.5rem;
     }
 
@@ -592,222 +1217,175 @@
 
     .site-footer h4 {
       color: #FAF8F5;
-      font-size: 0.9rem;
+      font-size: 0.86rem;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      margin-bottom: 0.85rem;
+      margin-bottom: 0.9rem;
     }
 
-    .site-footer p {
-      font-size: 0.88rem;
+    .site-footer p, .site-footer a {
+      font-size: 0.9rem;
       color: #A6A095;
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.45rem;
+      text-decoration: none;
+      display: block;
+    }
+
+    .site-footer a:hover {
+      color: #FAF8F5;
     }
 
     .footer-legal {
       border-top: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 1.25rem 5%;
+      padding: 1.35rem 4%;
       text-align: center;
       font-size: 0.8rem;
       color: #827C72;
     }
 
-    /* Sacola Lateral */
-    .drawer-backdrop {
+    /* Modal QR Code */
+    .modal-backdrop {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(26, 25, 24, 0.45);
-      z-index: 180;
-    }
-
-    .cart-drawer {
-      position: fixed;
-      top: 0;
-      right: -440px;
-      width: 100%;
-      max-width: 420px;
-      height: 100vh;
-      background-color: var(--surface);
-      z-index: 200;
-      display: flex;
-      flex-direction: column;
-      border-left: 1px solid var(--border);
-      transition: right 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    .cart-drawer.open {
-      right: 0;
-    }
-
-    .drawer-top {
-      padding: 1.35rem 1.5rem;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .drawer-top h3 {
-      font-size: 1.35rem;
-    }
-
-    .drawer-sub {
-      font-size: 0.8rem;
-      color: var(--ink-muted);
-    }
-
-    .close-btn {
-      background: var(--surface-alt);
-      border: none;
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      display: grid;
+      background: rgba(26, 25, 24, 0.55);
+      backdrop-filter: blur(4px);
+      z-index: 10000;
       place-items: center;
-      cursor: pointer;
-      color: var(--ink);
+      padding: 1rem;
     }
 
-    .drawer-items {
-      flex: 1;
-      overflow-y: auto;
-      padding: 1.25rem 1.5rem;
+    .modal-backdrop.open {
+      display: grid;
     }
 
-    .empty-bag {
+    .qr-modal {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      max-width: 390px;
+      width: 100%;
+      padding: 2rem;
       text-align: center;
-      padding: 4rem 1rem;
-      color: var(--ink-muted);
-      font-size: 0.92rem;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
     }
 
-    .bag-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 1rem;
-      padding: 1rem 0;
-      border-bottom: 1px solid var(--border);
+    .qr-modal h3 {
+      font-size: 1.4rem;
+      margin-bottom: 0.45rem;
     }
 
-    .bag-item-details h4 {
-      font-size: 0.94rem;
-      font-weight: 600;
-      margin-bottom: 0.15rem;
-    }
-
-    .bag-item-variant {
-      display: block;
-      font-size: 0.78rem;
-      color: var(--ink-muted);
-      margin-bottom: 0.4rem;
-    }
-
-    .bag-item-price {
+    .qr-modal p {
       font-size: 0.9rem;
-      font-weight: 700;
-      color: var(--forest);
+      color: var(--ink-muted);
+      margin-bottom: 1.35rem;
     }
 
-    .bag-item-actions {
+    .qr-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.1rem;
+      display: inline-block;
+      margin-bottom: 1.35rem;
+    }
+
+    .qr-box img {
+      width: 185px;
+      height: 185px;
+      display: block;
+    }
+
+    .qr-modal-actions {
       display: flex;
       flex-direction: column;
-      align-items: flex-end;
-      gap: 0.5rem;
+      gap: 0.65rem;
     }
 
-    .qty-stepper {
-      display: inline-flex;
-      align-items: center;
+    .qr-close-btn {
+      background: transparent;
       border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      overflow: hidden;
-    }
-
-    .qty-stepper button {
-      background: var(--bg);
-      border: none;
-      width: 26px;
-      height: 26px;
-      cursor: pointer;
-      font-weight: 600;
-      color: var(--ink);
-    }
-
-    .qty-stepper button:hover {
-      background: var(--surface-alt);
-    }
-
-    .qty-stepper span {
-      padding: 0 0.55rem;
-      font-size: 0.85rem;
-      font-weight: 600;
-    }
-
-    .remove-link {
-      background: none;
-      border: none;
-      color: var(--danger);
-      font-size: 0.76rem;
-      text-decoration: underline;
-      cursor: pointer;
-    }
-
-    .drawer-bottom {
-      padding: 1.35rem 1.5rem;
-      border-top: 1px solid var(--border);
-      background-color: var(--bg);
-    }
-
-    .subtotal-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 0.35rem;
-    }
-
-    .subtotal-row strong {
-      font-size: 1.35rem;
-      color: var(--ink);
-    }
-
-    .shipping-note {
-      font-size: 0.78rem;
       color: var(--ink-muted);
-      margin-bottom: 1rem;
-    }
-
-    .checkout-btn {
-      width: 100%;
-      background-color: var(--forest);
-      color: #FAF8F5;
-      border: none;
-      padding: 0.9rem;
+      padding: 0.65rem;
       border-radius: var(--radius-sm);
-      font-size: 0.95rem;
+      font-size: 0.88rem;
       font-weight: 600;
       cursor: pointer;
-      transition: background-color 0.2s;
     }
 
-    .checkout-btn:hover {
-      background-color: var(--forest-hover);
+    /* Botão Flutuante WhatsApp */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 26px;
+      right: 26px;
+      width: 60px;
+      height: 60px;
+      background-color: var(--whatsapp);
+      color: #FFFFFF;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+      z-index: 9999;
+      transition: transform 0.2s ease, background-color 0.2s ease;
     }
 
-    @media (max-width: 860px) {
-      .hero-grid {
+    .whatsapp-float:hover {
+      transform: scale(1.08);
+      background-color: var(--whatsapp-hover);
+    }
+
+    /* Animação suave */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1024px) {
+      .showcase-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .pillars-grid, .steps-grid, .reviews-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .info-split-grid {
         grid-template-columns: 1fr;
       }
-      .main-nav {
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 760px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+      .main-nav, .qr-trigger {
         display: none;
+      }
+      .mobile-menu-btn {
+        display: grid;
+      }
+      .showcase-grid, .pillars-grid, .steps-grid, .reviews-grid, .footer-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-metrics {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
       }
       .floating-note {
         left: 12px;
         bottom: 12px;
       }
-      .footer-grid {
-        grid-template-columns: 1fr;
+      .cta-box {
+        padding: 2.2rem 1.65rem;
       }
     }
   </style>
@@ -815,9 +1393,14 @@
 <body>
 
   <div class="announcement-bar">
-    <span>Entrega local no mesmo dia para pedidos até às 17h</span>
+    <span class="status-pill">
+      <span class="status-dot" id="status-dot"></span>
+      <span id="status-texto">Atendimento ativo</span>
+    </span>
     <span class="dot">•</span>
-    <span>Venda a granel pesada na hora com selagem térmica</span>
+    <span>Consulte variedades no site ou fale direto com nossa equipe pelo WhatsApp</span>
+    <span class="dot">•</span>
+    <span>Entrega rápida na região</span>
   </div>
 
   <header class="site-header">
@@ -835,31 +1418,49 @@
       </a>
 
       <nav class="main-nav">
-        <a href="#catalogo">Catálogo</a>
-        <a href="#granel">Granel</a>
-        <a href="#loja">A Loja</a>
+        <a href="#sobre">Diferenciais</a>
+        <a href="#linhas">Produtos &amp; Variedades</a>
+        <a href="#como-funciona">Como Pedir</a>
+        <a href="#avaliacoes">Clientes</a>
+        <a href="#duvidas">Dúvidas &amp; Loja</a>
       </nav>
 
-      <div class="header-actions">
-        <div class="search-wrapper">
+      <div class="header-right">
+        <button type="button" class="qr-trigger" onclick="abrirModalQR()" title="Ler QR Code com o celular">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+            <path d="M14 14h3v3h-3zM18 18h3v3h-3zM14 20h3"></path>
           </svg>
-          <input type="text" id="campo-busca" placeholder="Buscar marca, ração ou porte..." oninput="aplicarFiltros()">
-        </div>
+          <span>QR Code Celular</span>
+        </button>
 
-        <button class="cart-trigger" onclick="abrirCarrinho()" aria-label="Abrir sacola de compras">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <path d="M16 10a4 4 0 0 1-8 0"></path>
+        <!-- Troque o número 5511999999999 pelo número real da loja -->
+        <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" class="header-whatsapp">
+          <svg width="17" height="17" viewBox="0 0 32 32" fill="currentColor">
+            <path d="M16.004 3.2c-7.06 0-12.8 5.74-12.8 12.8 0 2.256.588 4.458 1.706 6.4L3.08 29.08l6.854-1.798a12.74 12.74 0 0 0 6.07 1.546h.006c7.058 0 12.798-5.74 12.798-12.8 0-3.42-1.332-6.636-3.75-9.054A12.716 12.716 0 0 0 16.004 3.2zm0 23.466h-.004a10.61 10.61 0 0 1-5.41-1.482l-.388-.23-4.068 1.068 1.086-3.966-.252-.402a10.603 10.603 0 0 1-1.628-5.654c0-5.864 4.772-10.636 10.642-10.636 2.842 0 5.512 1.108 7.52 3.118a10.568 10.568 0 0 1 3.114 7.522c0 5.866-4.774 10.662-10.612 10.662zm5.834-7.968c-.32-.16-1.892-.934-2.186-1.04-.294-.106-.508-.16-.72.16-.214.32-.826 1.04-1.014 1.254-.186.214-.374.24-.694.08-.32-.16-1.35-.498-2.572-1.588-.95-.848-1.592-1.894-1.778-2.214-.186-.32-.02-.494.14-.654.144-.144.32-.374.48-.56.16-.186.214-.32.32-.534.106-.214.054-.4-.026-.56-.08-.16-.72-1.734-.986-2.374-.26-.624-.524-.54-.72-.55l-.614-.01c-.214 0-.56.08-.854.4-.294.32-1.12 1.094-1.12 2.668 0 1.574 1.146 3.094 1.306 3.308.16.214 2.256 3.444 5.464 4.83.764.33 1.36.526 1.824.674.766.244 1.464.21 2.016.128.614-.092 1.892-.774 2.16-1.52.266-.748.266-1.388.186-1.52-.08-.134-.294-.214-.614-.374z"/>
           </svg>
-          <span>Sacola</span>
-          <span class="cart-count" id="qtd-itens">0</span>
+          <span>WhatsApp</span>
+        </a>
+
+        <button class="mobile-menu-btn" onclick="document.getElementById('mobile-nav').classList.toggle('open')" aria-label="Abrir menu">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
         </button>
       </div>
     </div>
+
+    <nav class="mobile-nav" id="mobile-nav">
+      <a href="#sobre" onclick="this.parentElement.classList.remove('open')">Diferenciais</a>
+      <a href="#linhas" onclick="this.parentElement.classList.remove('open')">Produtos &amp; Variedades</a>
+      <a href="#como-funciona" onclick="this.parentElement.classList.remove('open')">Como Pedir</a>
+      <a href="#avaliacoes" onclick="this.parentElement.classList.remove('open')">Clientes</a>
+      <a href="#duvidas" onclick="this.parentElement.classList.remove('open')">Dúvidas &amp; Loja</a>
+    </nav>
   </header>
 
   <section class="hero">
@@ -868,11 +1469,19 @@
         <p class="eyebrow">Curadoria em nutrição animal</p>
         <h1>Alimentação honesta para quem faz parte da família.</h1>
         <p class="hero-lead">
-          Das linhas Super Premium aos grãos selecionados a granel. Peça pelo catálogo e receba em casa com pagamento na entrega.
+          Das linhas Super Premium aos grãos selecionados a granel. Confira todas as marcas e variedades direto pelo site ou chame nossa equipe no WhatsApp.
         </p>
         <div class="hero-cta">
-          <a href="#catalogo" class="btn-primary">Explorar catálogo</a>
-          <a href="#granel" class="btn-outline">Conhecer o granel</a>
+          <button type="button" class="btn-outline" onclick="abrirVariedades('todos')">
+            Consultar variedades no site
+          </button>
+          <!-- Troque o número 5511999999999 pelo número real da loja -->
+          <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" class="btn-primary">
+            <svg width="20" height="20" viewBox="0 0 32 32" fill="currentColor">
+              <path d="M16.004 3.2c-7.06 0-12.8 5.74-12.8 12.8 0 2.256.588 4.458 1.706 6.4L3.08 29.08l6.854-1.798a12.74 12.74 0 0 0 6.07 1.546h.006c7.058 0 12.798-5.74 12.798-12.8 0-3.42-1.332-6.636-3.75-9.054A12.716 12.716 0 0 0 16.004 3.2zm0 23.466h-.004a10.61 10.61 0 0 1-5.41-1.482l-.388-.23-4.068 1.068 1.086-3.966-.252-.402a10.603 10.603 0 0 1-1.628-5.654c0-5.864 4.772-10.636 10.642-10.636 2.842 0 5.512 1.108 7.52 3.118a10.568 10.568 0 0 1 3.114 7.522c0 5.866-4.774 10.662-10.612 10.662zm5.834-7.968c-.32-.16-1.892-.934-2.186-1.04-.294-.106-.508-.16-.72.16-.214.32-.826 1.04-1.014 1.254-.186.214-.374.24-.694.08-.32-.16-1.35-.498-2.572-1.588-.95-.848-1.592-1.894-1.778-2.214-.186-.32-.02-.494.14-.654.144-.144.32-.374.48-.56.16-.186.214-.32.32-.534.106-.214.054-.4-.026-.56-.08-.16-.72-1.734-.986-2.374-.26-.624-.524-.54-.72-.55l-.614-.01c-.214 0-.56.08-.854.4-.294.32-1.12 1.094-1.12 2.668 0 1.574 1.146 3.094 1.306 3.308.16.214 2.256 3.444 5.464 4.83.764.33 1.36.526 1.824.674.766.244 1.464.21 2.016.128.614-.092 1.892-.774 2.16-1.52.266-.748.266-1.388.186-1.52-.08-.134-.294-.214-.614-.374z"/>
+            </svg>
+            Falar com a loja
+          </a>
         </div>
 
         <div class="hero-metrics">
@@ -881,8 +1490,8 @@
             <span>em estoque contínuo</span>
           </div>
           <div>
-            <strong>Até 45 min</strong>
-            <span>prazo médio de entrega</span>
+            <strong>Venda a granel</strong>
+            <span>pesada e selada na hora</span>
           </div>
           <div>
             <strong>Desde 2019</strong>
@@ -897,59 +1506,322 @@
         </div>
         <div class="floating-note">
           <span class="note-label">Silo Fresco</span>
-          <p>Grãos armazenados em silos herméticos com controle de umidade.</p>
+          <p>Grãos armazenados em silos herméticos com controle diário de umidade e validade.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="pillars" id="granel">
-    <div class="pillars-inner">
-      <div class="pillar">
-        <span class="pillar-num">01</span>
-        <h3>Fracionamento na hora</h3>
-        <p>Compre 500g, 1kg ou 2kg da ração habitual do seu pet sem precisar levar sacos fechados de 15kg.</p>
+  <!-- Faixa de Marcas Parceiras -->
+  <div class="brands-strip">
+    <div class="brands-inner">
+      <span class="brands-label">Marcas que trabalhamos</span>
+      <div class="brands-list">
+        <span>Premier Pet</span>
+        <span>Golden</span>
+        <span>GranPlus</span>
+        <span>Royal Canin</span>
+        <span>Farmina N&amp;D</span>
+        <span>Nutrópica</span>
       </div>
-      <div class="pillar">
-        <span class="pillar-num">02</span>
-        <h3>Orientação nutricional</h3>
-        <p>Ajudamos na transição alimentar, escolha de rações medicamentosas e controle de peso.</p>
+    </div>
+  </div>
+
+  <section class="pillars-bg" id="sobre">
+    <div class="section-block reveal">
+      <div class="section-header-row">
+        <div class="section-intro">
+          <p class="eyebrow">Nosso Jeito de Atender</p>
+          <h2>Por que escolher a Celeiro &amp; Pata</h2>
+          <p>Unimos a confiança do comércio de bairro com orientação próxima para o bem-estar do seu animal.</p>
+        </div>
       </div>
-      <div class="pillar">
-        <span class="pillar-num">03</span>
-        <h3>Pedido direto no balcão digital</h3>
-        <p>Monte sua sacola aqui, ajuste as quantidades e envie direto para o nosso WhatsApp sem cadastro.</p>
+
+      <div class="pillars-grid">
+        <div class="pillar-card">
+          <span class="pillar-num">01</span>
+          <h3>Fracionamento na hora</h3>
+          <p>Compre 500g, 1kg ou 2kg da ração habitual do seu pet com selagem térmica, sem precisar levar sacos fechados de 15kg.</p>
+        </div>
+        <div class="pillar-card">
+          <span class="pillar-num">02</span>
+          <h3>Orientação nutricional</h3>
+          <p>Ajudamos você a escolher a ração ideal para cada porte, idade, castração ou necessidade medicamentosa.</p>
+        </div>
+        <div class="pillar-card">
+          <span class="pillar-num">03</span>
+          <h3>Consulta fácil ou contato direto</h3>
+          <p>Veja todas as marcas e variedades aqui mesmo no site ou fale direto com nossa equipe pelo WhatsApp.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <main class="catalog-section" id="catalogo">
-    <div class="catalog-header">
-      <div>
-        <p class="eyebrow">Prateleira</p>
-        <h2>Produtos disponíveis</h2>
+  <section class="section-block reveal" id="linhas">
+    <div class="section-header-row">
+      <div class="section-intro">
+        <p class="eyebrow">O que você encontra aqui</p>
+        <h2>Variedades por espécie</h2>
+        <p>Explore as marcas disponíveis diretamente pelo site ou clique para conversar com nossa equipe no WhatsApp.</p>
       </div>
 
-      <div class="filter-tabs" role="tablist">
-        <button class="tab active" onclick="filtrar('todos', this)">Todos os itens</button>
-        <button class="tab" onclick="filtrar('caes', this)">Cães</button>
-        <button class="tab" onclick="filtrar('gatos', this)">Gatos</button>
-        <button class="tab" onclick="filtrar('aves', this)">Aves &amp; Silvestres</button>
-        <button class="tab" onclick="filtrar('higiene', this)">Higiene &amp; Acessórios</button>
+      <div class="filter-pills" role="tablist">
+        <button type="button" class="filter-btn active" onclick="filtrarLinhas('todos', this)">Todas</button>
+        <button type="button" class="filter-btn" onclick="filtrarLinhas('caes', this)">Cães</button>
+        <button type="button" class="filter-btn" onclick="filtrarLinhas('gatos', this)">Gatos</button>
+        <button type="button" class="filter-btn" onclick="filtrarLinhas('aves', this)">Aves</button>
+        <button type="button" class="filter-btn" onclick="filtrarLinhas('higiene', this)">Higiene &amp; Farmácia</button>
       </div>
     </div>
 
-    <div class="product-grid" id="lista-produtos"></div>
-  </main>
+    <div class="showcase-grid">
+      <article class="showcase-card" data-cat="caes">
+        <div class="showcase-thumb">
+          <img src="https://images.unsplash.com/photo-1589924691995-400dc9ecc119?auto=format&fit=crop&w=600&q=80" alt="Rações para cães">
+        </div>
+        <div class="showcase-body">
+          <h3>Nutrição para Cães</h3>
+          <p>Rações Standard, Premium, Super Premium e naturais para filhotes, adultos e sêniores de todos os portes, em pacotes fechados ou a granel.</p>
+          <div class="card-dual-actions">
+            <button type="button" class="btn-view-site" onclick="abrirVariedades('caes')">Ver marcas e variedades</button>
+            <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" class="btn-card-whats">Consultar no WhatsApp</a>
+          </div>
+        </div>
+      </article>
 
-  <footer class="site-footer" id="loja">
+      <article class="showcase-card" data-cat="gatos">
+        <div class="showcase-thumb">
+          <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=600&q=80" alt="Rações para gatos">
+        </div>
+        <div class="showcase-body">
+          <h3>Nutrição para Gatos</h3>
+          <p>Fórmulas específicas para gatos castrados, controle de bolas de pelo, trato urinário, sachês e petiscos selecionados.</p>
+          <div class="card-dual-actions">
+            <button type="button" class="btn-view-site" onclick="abrirVariedades('gatos')">Ver marcas e variedades</button>
+            <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" class="btn-card-whats">Consultar no WhatsApp</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="showcase-card" data-cat="aves">
+        <div class="showcase-thumb">
+          <img src="https://images.unsplash.com/photo-1552728089-57bdde30beb3?auto=format&fit=crop&w=600&q=80" alt="Aves e silvestres">
+        </div>
+        <div class="showcase-body">
+          <h3>Aves &amp; Silvestres</h3>
+          <p>Misturas de sementes limpas, alimentos extrusados para calopsitas, periquitos, pássaros e pequenos roedores.</p>
+          <div class="card-dual-actions">
+            <button type="button" class="btn-view-site" onclick="abrirVariedades('aves')">Ver marcas e variedades</button>
+            <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" class="btn-card-whats">Consultar no WhatsApp</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="showcase-card" data-cat="higiene">
+        <div class="showcase-thumb">
+          <img src="https://images.unsplash.com/photo-1574158622682-e40e69881006?auto=format&fit=crop&w=600&q=80" alt="Higiene e acessórios">
+        </div>
+        <div class="showcase-body">
+          <h3>Higiene, Farmácia &amp; Acessórios</h3>
+          <p>Areias higiênicas, tapetes, antipulgas, vermífugos, comedouros, guias e brinquedos resistentes.</p>
+          <div class="card-dual-actions">
+            <button type="button" class="btn-view-site" onclick="abrirVariedades('higiene')">Ver itens e marcas</button>
+            <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" class="btn-card-whats">Consultar no WhatsApp</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="quick-topics">
+      <span class="quick-topics-label">Consultar rápido no site:</span>
+      <div class="topic-pills">
+        <button type="button" class="topic-pill" onclick="abrirVariedades('todos', 'Granel')">Ração a Granel</button>
+        <button type="button" class="topic-pill" onclick="abrirVariedades('caes', 'Filhote')">Cães Filhotes</button>
+        <button type="button" class="topic-pill" onclick="abrirVariedades('gatos', 'Castrados')">Gatos Castrados</button>
+        <button type="button" class="topic-pill" onclick="abrirVariedades('higiene', 'Antipulgas')">Antipulgas &amp; Vermífugos</button>
+        <button type="button" class="topic-pill" onclick="abrirVariedades('higiene', 'Areia')">Areia Higiênica</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Como Funciona -->
+  <section class="steps-bg" id="como-funciona">
+    <div class="section-block reveal">
+      <div class="section-header-row">
+        <div class="section-intro">
+          <p class="eyebrow">Simples e Rápido</p>
+          <h2>Como funciona o atendimento</h2>
+          <p>Você pode consultar as marcas direto pelo site ou falar com nossa equipe no WhatsApp quando quiser.</p>
+        </div>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-item">
+          <span class="step-badge">1</span>
+          <div>
+            <h3>Consulte no site ou chame</h3>
+            <p>Veja as variedades disponíveis por espécie aqui no site ou clique no WhatsApp para falar com o balcão.</p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <span class="step-badge">2</span>
+          <div>
+            <h3>Confirme valores e peso</h3>
+            <p>Respondemos na hora com o valor atualizado, opções a granel ou pacote fechado e o prazo de entrega.</p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <span class="step-badge">3</span>
+          <div>
+            <h3>Receba em casa ou retire</h3>
+            <p>Entregamos no seu endereço com maquininha, Pix ou dinheiro, ou deixamos separado para retirada rápida.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Depoimentos de Clientes -->
+  <section class="section-block reveal" id="avaliacoes">
+    <div class="section-header-row">
+      <div class="section-intro">
+        <p class="eyebrow">Quem já compra com a gente</p>
+        <h2>Avaliações dos clientes do bairro</h2>
+        <p>Atendimento de confiança construído no dia a dia com os tutores da região.</p>
+      </div>
+    </div>
+
+    <div class="reviews-grid">
+      <article class="review-card">
+        <div>
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">“Sempre compro a ração a granel para os meus dois cães aqui. Vem muito bem selada, fresquinha e chega super rápido quando peço pelo WhatsApp.”</p>
+        </div>
+        <div class="review-author">
+          <strong>Mariana S.</strong>
+          <span>Tutora do Thor e da Mel</span>
+        </div>
+      </article>
+
+      <article class="review-card">
+        <div>
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">“Atendimento excelente! Estava com dúvida sobre qual ração dar para minha gata recém-castrada e me orientaram com muita paciência e preço justo.”</p>
+        </div>
+        <div class="review-author">
+          <strong>Carlos Eduardo R.</strong>
+          <span>Tutor da Luna</span>
+        </div>
+      </article>
+
+      <article class="review-card">
+        <div>
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">“Praticidade total. Mando mensagem no meio da tarde e antes de eu chegar do trabalho a areia e a ração já foram entregues em casa.”</p>
+        </div>
+        <div class="review-author">
+          <strong>Fernanda M.</strong>
+          <span>Cliente desde 2021</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- FAQ + Loja Física -->
+  <section class="info-split-bg" id="duvidas">
+    <div class="section-block reveal">
+      <div class="info-split-grid">
+        <div>
+          <div class="section-intro" style="margin-bottom: 1.75rem;">
+            <p class="eyebrow">Tire suas dúvidas</p>
+            <h2>Perguntas frequentes</h2>
+          </div>
+
+          <div class="faq-list">
+            <details class="faq-item">
+              <summary>Vocês fazem entrega no mesmo dia?</summary>
+              <p>Sim! Pedidos confirmados pelo WhatsApp até às 17h são entregues no mesmo dia na região. Para outros horários, combinamos o melhor período com você.</p>
+            </details>
+
+            <details class="faq-item">
+              <summary>Como funciona a venda de ração a granel?</summary>
+              <p>As rações ficam armazenadas em silos fechados e protegidos. Pesamos a quantidade exata que você pedir na hora e selamos a embalagem termicamente para manter o aroma e a crocância.</p>
+            </details>
+
+            <details class="faq-item">
+              <summary>Quais são as formas de pagamento aceitas?</summary>
+              <p>Aceitamos Pix, cartões de crédito e débito (levamos a maquininha na entrega) e dinheiro.</p>
+            </details>
+
+            <details class="faq-item">
+              <summary>Não sei qual ração escolher para meu pet, vocês ajudam?</summary>
+              <p>Com certeza. Basta mandar uma mensagem contando a idade, porte e se o pet é castrado ou tem alguma sensibilidade que indicamos as melhores opções dentro do seu orçamento.</p>
+            </details>
+          </div>
+        </div>
+
+        <aside class="store-card" id="contato">
+          <p class="eyebrow" style="margin-bottom: 0.4rem;">Loja Física</p>
+          <h3>Venha nos visitar</h3>
+          <p>Retire seu pedido no balcão ou peça orientação presencial para o seu pet.</p>
+
+          <div class="store-detail-list">
+            <div class="store-detail-item">
+              <strong>Endereço</strong>
+              <span id="endereco-texto">Av. das Palmeiras, 1120 — Loja 02</span>
+            </div>
+            <div class="store-detail-item">
+              <strong>Horários</strong>
+              <span>Seg a Sex: 08h00 – 19h30<br>Sábados: 08h00 – 17h00 | Dom: 08h30 – 12h30</span>
+            </div>
+            <div class="store-detail-item">
+              <strong>WhatsApp Direto</strong>
+              <span>(11) 99999-9999</span>
+            </div>
+          </div>
+
+          <div class="store-card-actions">
+            <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="btn-dark-sm">Abrir no Google Maps</a>
+            <button type="button" class="btn-light-sm" onclick="copiarEndereco(this)">Copiar endereço</button>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-banner reveal">
+    <div class="cta-box">
+      <div class="cta-text">
+        <h2>Quer consultar um preço ou tirar uma dúvida?</h2>
+        <p>Clique no botão ao lado para abrir uma conversa direta com a nossa equipe no WhatsApp. Atendimento humano, rápido e sem compromisso.</p>
+      </div>
+      <!-- Troque o número 5511999999999 pelo número real da loja -->
+      <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-large">
+        <svg width="22" height="22" viewBox="0 0 32 32" fill="currentColor">
+          <path d="M16.004 3.2c-7.06 0-12.8 5.74-12.8 12.8 0 2.256.588 4.458 1.706 6.4L3.08 29.08l6.854-1.798a12.74 12.74 0 0 0 6.07 1.546h.006c7.058 0 12.798-5.74 12.798-12.8 0-3.42-1.332-6.636-3.75-9.054A12.716 12.716 0 0 0 16.004 3.2zm0 23.466h-.004a10.61 10.61 0 0 1-5.41-1.482l-.388-.23-4.068 1.068 1.086-3.966-.252-.402a10.603 10.603 0 0 1-1.628-5.654c0-5.864 4.772-10.636 10.642-10.636 2.842 0 5.512 1.108 7.52 3.118a10.568 10.568 0 0 1 3.114 7.522c0 5.866-4.774 10.662-10.612 10.662zm5.834-7.968c-.32-.16-1.892-.934-2.186-1.04-.294-.106-.508-.16-.72.16-.214.32-.826 1.04-1.014 1.254-.186.214-.374.24-.694.08-.32-.16-1.35-.498-2.572-1.588-.95-.848-1.592-1.894-1.778-2.214-.186-.32-.02-.494.14-.654.144-.144.32-.374.48-.56.16-.186.214-.32.32-.534.106-.214.054-.4-.026-.56-.08-.16-.72-1.734-.986-2.374-.26-.624-.524-.54-.72-.55l-.614-.01c-.214 0-.56.08-.854.4-.294.32-1.12 1.094-1.12 2.668 0 1.574 1.146 3.094 1.306 3.308.16.214 2.256 3.444 5.464 4.83.764.33 1.36.526 1.824.674.766.244 1.464.21 2.016.128.614-.092 1.892-.774 2.16-1.52.266-.748.266-1.388.186-1.52-.08-.134-.294-.214-.614-.374z"/>
+        </svg>
+        <span>Chamar no WhatsApp agora</span>
+      </a>
+    </div>
+  </section>
+
+  <footer class="site-footer">
     <div class="footer-grid">
       <div class="footer-brand">
         <span class="brand-name">Celeiro &amp; Pata</span>
-        <p>Casa de ração, farmácia veterinária básica e empório natural.</p>
+        <p>Casa de ração, farmácia veterinária básica e empório natural. Atendimento próximo e produtos sempre frescos.</p>
       </div>
       <div>
-        <h4>Funcionamento</h4>
+        <h4>Navegação</h4>
+        <a href="#sobre">Diferenciais</a>
+        <a href="#linhas">Variedades por Espécie</a>
+        <a href="#como-funciona">Como Pedir</a>
+        <a href="#avaliacoes">Avaliações</a>
+      </div>
+      <div>
+        <h4>Horário de Funcionamento</h4>
         <p>Segunda a Sexta: 08h00 – 19h30</p>
         <p>Sábados: 08h00 – 17h00</p>
         <p>Domingos: 08h30 – 12h30</p>
@@ -957,8 +1829,8 @@
       <div>
         <h4>Endereço &amp; Contato</h4>
         <p>Av. das Palmeiras, 1120 — Loja 02</p>
-        <p>WhatsApp: (11) 99999-9999</p>
-        <p>Pix, Cartões e Dinheiro na entrega</p>
+        <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer">WhatsApp: (11) 99999-9999</a>
+        <p>Pix, Cartões e Dinheiro</p>
       </div>
     </div>
     <div class="footer-legal">
@@ -966,299 +1838,340 @@
     </div>
   </footer>
 
-  <!-- Overlay -->
-  <div class="drawer-backdrop" id="overlay" onclick="fecharCarrinho()"></div>
-
-  <!-- Sacola Lateral -->
-  <aside class="cart-drawer" id="drawer-carrinho" aria-label="Sacola de compras">
-    <div class="drawer-top">
-      <div>
-        <h3>Sua Sacola</h3>
-        <span class="drawer-sub">Revise os itens antes de enviar</span>
+  <!-- Modal de Consulta de Marcas e Variedades no Próprio Site -->
+  <div class="catalog-modal-backdrop" id="modal-variedades" onclick="if(event.target === this) fecharVariedades()">
+    <div class="catalog-modal" role="dialog" aria-modal="true" aria-labelledby="modal-var-titulo">
+      <div class="catalog-modal-top">
+        <div>
+          <h3 id="modal-var-titulo">Marcas e Variedades Disponíveis</h3>
+          <p>Consulte as linhas e apresentações que trabalhamos na loja — sem precisar sair do site.</p>
+        </div>
+        <button type="button" class="modal-close-x" onclick="fecharVariedades()" aria-label="Fechar janela">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
       </div>
-      <button class="close-btn" onclick="fecharCarrinho()" aria-label="Fechar sacola">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
-      </button>
-    </div>
 
-    <div class="drawer-items" id="itens-carrinho"></div>
+      <div class="catalog-modal-controls">
+        <div class="modal-tabs" id="modal-tabs">
+          <button type="button" class="modal-tab active" data-especie="todos" onclick="mudarAbaModal('todos', this)">Todas as espécies</button>
+          <button type="button" class="modal-tab" data-especie="caes" onclick="mudarAbaModal('caes', this)">Cães</button>
+          <button type="button" class="modal-tab" data-especie="gatos" onclick="mudarAbaModal('gatos', this)">Gatos</button>
+          <button type="button" class="modal-tab" data-especie="aves" onclick="mudarAbaModal('aves', this)">Aves &amp; Silvestres</button>
+          <button type="button" class="modal-tab" data-especie="higiene" onclick="mudarAbaModal('higiene', this)">Higiene &amp; Farmácia</button>
+        </div>
 
-    <div class="drawer-bottom">
-      <div class="subtotal-row">
-        <span>Total estimado</span>
-        <strong>R$ <span id="valor-total">0,00</span></strong>
+        <input type="text" class="modal-search" id="modal-busca" placeholder="Filtrar marca ou tipo..." oninput="renderizarVariedades()">
       </div>
-      <p class="shipping-note">Taxa de entrega combinada no WhatsApp conforme o endereço.</p>
-      <button class="checkout-btn" onclick="enviarWhatsApp()">
-        Enviar pedido pelo WhatsApp
-      </button>
+
+      <div class="catalog-modal-body" id="modal-lista-variedades"></div>
+
+      <div class="catalog-modal-footer">
+        <span>Não achou o rótulo específico ou quer consultar o valor atualizado?</span>
+        <!-- Troque o número 5511999999999 pelo número real da loja -->
+        <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" class="btn-modal-whats">
+          Perguntar no WhatsApp
+        </a>
+      </div>
     </div>
-  </aside>
+  </div>
+
+  <!-- Modal QR Code para quem está no Computador -->
+  <div class="modal-backdrop" id="modal-qr" onclick="if(event.target === this) fecharModalQR()">
+    <div class="qr-modal">
+      <h3>Continuar no Celular</h3>
+      <p>Aponte a câmera do seu celular para o código abaixo para abrir o nosso WhatsApp direto no aparelho.</p>
+      <div class="qr-box">
+        <!-- Troque o número 5511999999999 na URL abaixo também -->
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://wa.me/5511999999999" alt="QR Code WhatsApp Celeiro e Pata">
+      </div>
+      <div class="qr-modal-actions">
+        <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" class="btn-primary" style="justify-content: center;">
+          Abrir WhatsApp Web neste PC
+        </a>
+        <button type="button" class="qr-close-btn" onclick="fecharModalQR()">Fechar janela</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botão Flutuante Direto para o WhatsApp da Empresa -->
+  <!-- Troque o número 5511999999999 pelo número real da loja -->
+  <a href="https://wa.me/5511999999999" 
+     target="_blank" 
+     rel="noopener noreferrer"
+     class="whatsapp-float"
+     aria-label="Entrar em contato direto pelo WhatsApp"
+     title="Falar diretamente com a empresa no WhatsApp">
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path d="M16.004 3.2c-7.06 0-12.8 5.74-12.8 12.8 0 2.256.588 4.458 1.706 6.4L3.08 29.08l6.854-1.798a12.74 12.74 0 0 0 6.07 1.546h.006c7.058 0 12.798-5.74 12.798-12.8 0-3.42-1.332-6.636-3.75-9.054A12.716 12.716 0 0 0 16.004 3.2zm0 23.466h-.004a10.61 10.61 0 0 1-5.41-1.482l-.388-.23-4.068 1.068 1.086-3.966-.252-.402a10.603 10.603 0 0 1-1.628-5.654c0-5.864 4.772-10.636 10.642-10.636 2.842 0 5.512 1.108 7.52 3.118a10.568 10.568 0 0 1 3.114 7.522c0 5.866-4.774 10.662-10.612 10.662zm5.834-7.968c-.32-.16-1.892-.934-2.186-1.04-.294-.106-.508-.16-.72.16-.214.32-.826 1.04-1.014 1.254-.186.214-.374.24-.694.08-.32-.16-1.35-.498-2.572-1.588-.95-.848-1.592-1.894-1.778-2.214-.186-.32-.02-.494.14-.654.144-.144.32-.374.48-.56.16-.186.214-.32.32-.534.106-.214.054-.4-.026-.56-.08-.16-.72-1.734-.986-2.374-.26-.624-.524-.54-.72-.55l-.614-.01c-.214 0-.56.08-.854.4-.294.32-1.12 1.094-1.12 2.668 0 1.574 1.146 3.094 1.306 3.308.16.214 2.256 3.444 5.464 4.83.764.33 1.36.526 1.824.674.766.244 1.464.21 2.016.128.614-.092 1.892-.774 2.16-1.52.266-.748.266-1.388.186-1.52-.08-.134-.294-.214-.614-.374z"/>
+    </svg>
+  </a>
 
   <script>
-    const catalogoProdutos = [
+    // Catálogo de consulta por espécie (sem preços, apenas variedades e marcas)
+    const variedadesLoja = [
+      // CÃES
       {
-        id: 1,
+        especie: "caes",
+        marca: "Golden / Premier Pet",
+        nome: "Golden Formula Cães Adultos & Filhotes",
+        desc: "Sabores Frango & Arroz, Carne & Arroz e Salmão. Opções para Raças Pequenas e Médias/Grandes.",
+        tags: ["Granel disponível", "Pacotes 1kg, 3kg e 15kg"]
+      },
+      {
+        especie: "caes",
         marca: "Premier Pet",
-        nome: "Golden Formula Cães Adultos Frango & Arroz",
-        categoria: "caes",
-        selo: "Granel disponível",
-        img: "https://images.unsplash.com/photo-1589924691995-400dc9ecc119?auto=format&fit=crop&w=600&q=80",
-        opcoes: [
-          { rotulo: "1kg (Granel)", preco: 14.90 },
-          { rotulo: "3kg", preco: 46.50 },
-          { rotulo: "15kg", preco: 158.00 }
-        ]
+        nome: "Premier Seleção Natural & Ambientes Internos",
+        desc: "Linha Super Premium sem corantes nem aromatizantes, com redução de odor das fezes.",
+        tags: ["Super Premium", "Filhote, Adulto e Sênior"]
       },
       {
-        id: 2,
-        marca: "Affinity",
-        nome: "GranPlus Choice Gatos Castrados Salmão",
-        categoria: "gatos",
-        selo: "Mais pedido",
-        img: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=600&q=80",
-        opcoes: [
-          { rotulo: "1kg (Granel)", preco: 16.50 },
-          { rotulo: "3kg", preco: 49.90 },
-          { rotulo: "10,1kg", preco: 139.00 }
-        ]
+        especie: "caes",
+        marca: "Farmina N&D",
+        nome: "Natural & Delicious Ancestral Grain / Prime",
+        desc: "Alimento Super Premium de alta digestibilidade para raças pequenas, médias e grandes.",
+        tags: ["Super Premium", "Pacotes 2,5kg e 10,1kg"]
       },
       {
-        id: 3,
-        marca: "N&D Farmina",
-        nome: "Natural & Delicious Ancestral Grain Raças Pequenas",
-        categoria: "caes",
-        selo: "Super Premium",
-        img: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=600&q=80",
-        opcoes: [
-          { rotulo: "2,5kg", preco: 119.00 },
-          { rotulo: "10,1kg", preco: 349.00 }
-        ]
+        especie: "caes",
+        marca: "GranPlus / Affinity",
+        nome: "GranPlus Choice & Menu Cães",
+        desc: "Opções para adultos, filhotes e cães castrados ou com controle de peso.",
+        tags: ["Granel disponível", "Pacotes 3kg e 15kg"]
       },
       {
-        id: 4,
+        especie: "caes",
+        marca: "Royal Canin",
+        nome: "Linha Específica por Raça & Veterinária",
+        desc: "Shih Tzu, Yorkshire, Bulldog, Pug e linhas gastrointestinais ou hipoalergênicas.",
+        tags: ["Sob consulta", "Linha Veterinária"]
+      },
+      {
+        especie: "caes",
+        marca: "Special Dog / Magnus",
+        nome: "Special Dog Prime & Magnus Todo Dia",
+        desc: "Excelente custo-benefício para cães adultos e filhotes com alta palatabilidade.",
+        tags: ["Granel disponível", "Sacos 15kg e 20kg"]
+      },
+
+      // GATOS
+      {
+        especie: "gatos",
+        marca: "GranPlus / Affinity",
+        nome: "GranPlus Choice & Gourmet Gatos Castrados",
+        desc: "Sabores Salmão & Arroz, Frango & Arroz e Carne. Controle de peso e saúde do trato urinário.",
+        tags: ["Granel disponível", "Castrados", "1kg, 3kg e 10,1kg"]
+      },
+      {
+        especie: "gatos",
+        marca: "Golden / Premier Pet",
+        nome: "Golden Gatos Castrados & Filhotes",
+        desc: "Sabores Salmão, Frango e Carne com minerais balanceados para prevenção de cálculos urinários.",
+        tags: ["Granel disponível", "Pacotes 1kg, 3kg e 10,1kg"]
+      },
+      {
+        especie: "gatos",
+        marca: "Premier Pet",
+        nome: "Premier Gatos Ambientes Internos & Pelo Longo",
+        desc: "Linha Super Premium com controle de bolas de pelo e fibras especiais.",
+        tags: ["Super Premium", "Castrados"]
+      },
+      {
+        especie: "gatos",
+        marca: "Whiskas / Friskies / Sachês",
+        nome: "Alimentos Úmidos, Sachês e Petiscos",
+        desc: "Variedade de sabores em sachês individuais e caixas fechadas para hidratação diária.",
+        tags: ["Unidade ou Caixa", "Todos os sabores"]
+      },
+
+      // AVES & SILVESTRES
+      {
+        especie: "aves",
         marca: "Nutrópica",
-        nome: "Alimento Extrusado Natural para Calopsitas",
-        categoria: "aves",
-        selo: "",
-        img: "https://images.unsplash.com/photo-1552728089-57bdde30beb3?auto=format&fit=crop&w=600&q=80",
-        opcoes: [
-          { rotulo: "500g (Granel)", preco: 14.00 },
-          { rotulo: "1,2kg", preco: 32.90 }
-        ]
+        nome: "Extrusado Natural & Seleção Natural Calopsitas",
+        desc: "Alimento completo com frutas e grãos selecionados para calopsitas, agapornis e periquitos.",
+        tags: ["Granel disponível", "Pacotes 500g e 1,2kg"]
       },
       {
-        id: 5,
-        marca: "Pipicat",
-        nome: "Areia Higiênica Mineral Grãos Finos",
-        categoria: "higiene",
-        selo: "",
-        img: "https://images.unsplash.com/photo-1574158622682-e40e69881006?auto=format&fit=crop&w=600&q=80",
-        opcoes: [
-          { rotulo: "4kg", preco: 16.90 },
-          { rotulo: "12kg", preco: 39.90 }
-        ]
+        especie: "aves",
+        marca: "Reino das Aves / Megazoo",
+        nome: "Misturas de Sementes Limpas & Extrusadas",
+        desc: "Alpiste, painço, girassol miúdo, misturas para trinca-ferro, coleiro, canário e papagaio.",
+        tags: ["Granel disponível", "Sementes limpas"]
       },
       {
-        id: 6,
-        marca: "Zee.Bowl",
-        nome: "Comedouro Ergonômico Antiderrapante",
-        categoria: "higiene",
-        selo: "Novo",
-        img: "https://images.unsplash.com/photo-1591946614720-90a587da4a36?auto=format&fit=crop&w=600&q=80",
-        opcoes: [
-          { rotulo: "Tamanho P", preco: 44.90 },
-          { rotulo: "Tamanho M", preco: 59.90 }
-        ]
+        especie: "aves",
+        marca: "Roedores & Pequenos Pets",
+        nome: "Ração para Hamster, Porquinho-da-Índia e Coelho",
+        desc: "Alimentos extrusados, alfafa prensada e serragem higiênica.",
+        tags: ["Pacotes fechados", "Pronta entrega"]
+      },
+
+      // HIGIENE & FARMÁCIA
+      {
+        especie: "higiene",
+        marca: "Pipicat / Kelco",
+        nome: "Areia Higiênica Classic, Multi-Cat & Campestre",
+        desc: "Grãos finos e médios com alto poder de absorção e formação rápida de torrões.",
+        tags: ["Pacotes 4kg e 12kg", "Pronta entrega"]
+      },
+      {
+        especie: "higiene",
+        marca: "Bravecto / NexGard / Simparic",
+        nome: "Antipulgas e Carrapaticidas Orais e Pipetas",
+        desc: "Proteção mensal ou trimestral dividida por faixa de peso para cães e gatos.",
+        tags: ["Antipulgas", "Todos os pesos"]
+      },
+      {
+        especie: "higiene",
+        marca: "Drontal / Vermivet / Endogard",
+        nome: "Vermífugos de Amplo Espectro",
+        desc: "Comprimidos palatáveis e suspensões para filhotes e adultos (cães e gatos).",
+        tags: ["Farmácia Básica", "Orientação no balcão"]
+      },
+      {
+        especie: "higiene",
+        marca: "Tapetes & Acessórios",
+        nome: "Tapetes Higiênicos, Comedouros e Guias",
+        desc: "Pacotes de tapetes descartáveis, comedouros pesados, coleiras, peitorais e brinquedos.",
+        tags: ["Vários tamanhos", "Loja física"]
       }
     ];
 
-    let selecaoOpcoes = {};
-    catalogoProdutos.forEach(p => { selecaoOpcoes[p.id] = 0; });
+    let especieModalAtiva = "todos";
 
-    let sacola = [];
-    let categoriaAtiva = 'todos';
+    function abrirVariedades(especie = "todos", termoBusca = "") {
+      especieModalAtiva = especie;
+      document.getElementById("modal-busca").value = termoBusca;
 
-    function renderizarProdutos(lista) {
-      const container = document.getElementById('lista-produtos');
+      document.querySelectorAll(".modal-tab").forEach(tab => {
+        tab.classList.toggle("active", tab.dataset.especie === especie);
+      });
 
-      if (lista.length === 0) {
-        container.innerHTML = `<p style="grid-column: 1/-1; color: var(--ink-muted); padding: 2rem 0;">Nenhum produto encontrado com esse termo.</p>`;
+      renderizarVariedades();
+      document.getElementById("modal-variedades").classList.add("open");
+    }
+
+    function fecharVariedades() {
+      document.getElementById("modal-variedades").classList.remove("open");
+    }
+
+    function mudarAbaModal(especie, botao) {
+      especieModalAtiva = especie;
+      document.querySelectorAll(".modal-tab").forEach(t => t.classList.remove("active"));
+      botao.classList.add("active");
+      renderizarVariedades();
+    }
+
+    function renderizarVariedades() {
+      const busca = document.getElementById("modal-busca").value.toLowerCase().trim();
+      const listaEl = document.getElementById("modal-lista-variedades");
+
+      const filtrados = variedadesLoja.filter(item => {
+        const matchEspecie = especieModalAtiva === "todos" || item.especie === especieModalAtiva;
+        const matchTexto =
+          item.marca.toLowerCase().includes(busca) ||
+          item.nome.toLowerCase().includes(busca) ||
+          item.desc.toLowerCase().includes(busca) ||
+          item.tags.some(t => t.toLowerCase().includes(busca));
+        return matchEspecie && matchTexto;
+      });
+
+      if (filtrados.length === 0) {
+        listaEl.innerHTML = `<p style="grid-column: 1/-1; color: var(--ink-muted); padding: 1.5rem 0;">Nenhuma variedade encontrada com esse filtro. Clique abaixo para consultar no WhatsApp.</p>`;
         return;
       }
 
-      container.innerHTML = lista.map(prod => {
-        const idxSelecionado = selecaoOpcoes[prod.id] || 0;
-        const opcaoAtual = prod.opcoes[idxSelecionado];
-
-        const botoesOpcoes = prod.opcoes.map((op, i) => `
-          <button
-            type="button"
-            class="variant-pill ${i === idxSelecionado ? 'selected' : ''}"
-            onclick="selecionarOpcao(${prod.id}, ${i})"
-          >${op.rotulo}</button>
-        `).join('');
-
-        return `
-          <article class="product-card">
-            <div>
-              <div class="product-thumb">
-                ${prod.selo ? `<span class="product-tag">${prod.selo}</span>` : ''}
-                <img src="${prod.img}" alt="${prod.nome}">
-              </div>
-              <div class="product-body">
-                <span class="product-brand">${prod.marca}</span>
-                <h3 class="product-title">${prod.nome}</h3>
-                <div class="variant-selector">${botoesOpcoes}</div>
-                <div class="product-footer">
-                  <div class="price-block">
-                    <small>${opcaoAtual.rotulo}</small>
-                    <strong>R$ ${opcaoAtual.preco.toFixed(2).replace('.', ',')}</strong>
-                  </div>
-                  <button class="add-btn" onclick="adicionarNaSacola(${prod.id})">Adicionar</button>
-                </div>
-              </div>
-            </div>
-          </article>
-        `;
-      }).join('');
+      listaEl.innerHTML = filtrados.map(item => `
+        <article class="variety-card">
+          <div>
+            <span class="variety-brand">${item.marca}</span>
+            <h4 class="variety-title">${item.nome}</h4>
+            <p class="variety-desc">${item.desc}</p>
+          </div>
+          <div class="variety-tags">
+            ${item.tags.map(t => `<span class="v-tag ${t.toLowerCase().includes('granel') ? 'granel' : ''}">${t}</span>`).join("")}
+          </div>
+        </article>
+      `).join("");
     }
 
-    function selecionarOpcao(produtoId, indiceOpcao) {
-      selecaoOpcoes[produtoId] = indiceOpcao;
-      aplicarFiltros();
+    function atualizarStatusLoja() {
+      const agora = new Date();
+      const dia = agora.getDay();
+      const horaDecimal = agora.getHours() + agora.getMinutes() / 60;
+      let aberta = false;
+
+      if (dia >= 1 && dia <= 5) {
+        aberta = horaDecimal >= 8 && horaDecimal < 19.5;
+      } else if (dia === 6) {
+        aberta = horaDecimal >= 8 && horaDecimal < 17;
+      } else if (dia === 0) {
+        aberta = horaDecimal >= 8.5 && horaDecimal < 12.5;
+      }
+
+      const dot = document.getElementById('status-dot');
+      const texto = document.getElementById('status-texto');
+      if (aberta) {
+        dot.classList.remove('closed');
+        texto.textContent = 'Loja aberta agora';
+      } else {
+        dot.classList.add('closed');
+        texto.textContent = 'Fechada agora • Chame no WhatsApp';
+      }
     }
 
-    function filtrar(categoria, botao) {
-      categoriaAtiva = categoria;
-      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    function filtrarLinhas(categoria, botao) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       botao.classList.add('active');
-      aplicarFiltros();
-    }
 
-    function aplicarFiltros() {
-      const busca = document.getElementById('campo-busca').value.toLowerCase().trim();
-      const filtrados = catalogoProdutos.filter(p => {
-        const matchCat = categoriaAtiva === 'todos' || p.categoria === categoriaAtiva;
-        const matchTexto = p.nome.toLowerCase().includes(busca) || p.marca.toLowerCase().includes(busca);
-        return matchCat && matchTexto;
+      document.querySelectorAll('.showcase-card').forEach(card => {
+        if (categoria === 'todos' || card.dataset.cat === categoria) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
       });
-      renderizarProdutos(filtrados);
     }
 
-    function adicionarNaSacola(produtoId) {
-      const produto = catalogoProdutos.find(p => p.id === produtoId);
-      const idxOpcao = selecaoOpcoes[produtoId] || 0;
-      const opcao = produto.opcoes[idxOpcao];
-      const chaveUnica = `${produto.id}-${opcao.rotulo}`;
-
-      const existente = sacola.find(item => item.chave === chaveUnica);
-      if (existente) {
-        existente.qtd += 1;
-      } else {
-        sacola.push({
-          chave: chaveUnica,
-          nome: produto.nome,
-          marca: produto.marca,
-          variante: opcao.rotulo,
-          preco: opcao.preco,
-          qtd: 1
-        });
-      }
-
-      atualizarSacola();
-      abrirCarrinho();
-    }
-
-    function alterarQuantidade(chave, delta) {
-      const item = sacola.find(i => i.chave === chave);
-      if (!item) return;
-
-      item.qtd += delta;
-      if (item.qtd <= 0) {
-        removerDaSacola(chave);
-      } else {
-        atualizarSacola();
-      }
-    }
-
-    function removerDaSacola(chave) {
-      sacola = sacola.filter(item => item.chave !== chave);
-      atualizarSacola();
-    }
-
-    function atualizarSacola() {
-      const totalUnidades = sacola.reduce((acc, item) => acc + item.qtd, 0);
-      document.getElementById('qtd-itens').innerText = totalUnidades;
-
-      const listaEl = document.getElementById('itens-carrinho');
-      let totalGeral = 0;
-
-      if (sacola.length === 0) {
-        listaEl.innerHTML = `<div class="empty-bag">Sua sacola está vazia no momento.<br>Escolha uma opção no catálogo para começar.</div>`;
-      } else {
-        listaEl.innerHTML = sacola.map(item => {
-          const subtotal = item.preco * item.qtd;
-          totalGeral += subtotal;
-
-          return `
-            <div class="bag-item">
-              <div class="bag-item-details">
-                <h4>${item.nome}</h4>
-                <span class="bag-item-variant">${item.marca} • ${item.variante}</span>
-                <span class="bag-item-price">R$ ${subtotal.toFixed(2).replace('.', ',')}</span>
-              </div>
-              <div class="bag-item-actions">
-                <div class="qty-stepper">
-                  <button type="button" onclick="alterarQuantidade('${item.chave}', -1)">−</button>
-                  <span>${item.qtd}</span>
-                  <button type="button" onclick="alterarQuantidade('${item.chave}', 1)">+</button>
-                </div>
-                <button type="button" class="remove-link" onclick="removerDaSacola('${item.chave}')">Remover</button>
-              </div>
-            </div>
-          `;
-        }).join('');
-      }
-
-      document.getElementById('valor-total').innerText = totalGeral.toFixed(2).replace('.', ',');
-    }
-
-    function abrirCarrinho() {
-      atualizarSacola();
-      document.getElementById('drawer-carrinho').classList.add('open');
-      document.getElementById('overlay').style.display = 'block';
-    }
-
-    function fecharCarrinho() {
-      document.getElementById('drawer-carrinho').classList.remove('open');
-      document.getElementById('overlay').style.display = 'none';
-    }
-
-    function enviarWhatsApp() {
-      if (sacola.length === 0) {
-        alert("Adicione pelo menos um item à sacola antes de finalizar.");
-        return;
-      }
-
-      const telefone = "5511999999999"; // Substituir pelo número real da loja
-      let mensagem = "Olá, gostaria de fazer um pedido pelo site:\n\n";
-      let total = 0;
-
-      sacola.forEach(item => {
-        const subtotal = item.preco * item.qtd;
-        mensagem += `• ${item.qtd}x ${item.nome} (${item.variante}) — R$ ${subtotal.toFixed(2).replace('.', ',')}\n`;
-        total += subtotal;
+    function copiarEndereco(botao) {
+      const endereco = document.getElementById('endereco-texto').textContent;
+      navigator.clipboard.writeText(endereco).then(() => {
+        const original = botao.textContent;
+        botao.textContent = 'Endereço copiado!';
+        setTimeout(() => { botao.textContent = original; }, 2200);
       });
-
-      mensagem += `\nTotal estimado: R$ ${total.toFixed(2).replace('.', ',')}`;
-      window.open(`https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`, '_blank');
     }
 
-    renderizarProdutos(catalogoProdutos);
+    function abrirModalQR() {
+      document.getElementById('modal-qr').classList.add('open');
+    }
+
+    function fecharModalQR() {
+      document.getElementById('modal-qr').classList.remove('open');
+    }
+
+    // Fecha modais com a tecla ESC no computador
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        fecharVariedades();
+        fecharModalQR();
+      }
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    atualizarStatusLoja();
   </script>
+
 </body>
 </html>
